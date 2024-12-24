@@ -17,10 +17,8 @@ const wishlistRoutes = require("./routes/wishlistRoutes");
 const userRoutes = require("./routes/userRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const returnRoutes = require("./routes/returnRoutes");
-// const couponRoutes = require("./routes/CuponRoutes");
+const couponRoutes = require("./routes/CouponRoutes");
 const notificationRoutes = require("./routes/NotificationRouter");
-
-// :(
 
 // Connect to the database
 const connectDB = async () => {
@@ -53,7 +51,7 @@ app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/returns", returnRoutes);
-// app.use("/api/coupons", couponRoutes);
+app.use("/api/coupons", couponRoutes);
 app.use("/api/notifications", notificationRoutes);
 
 const port = process.env.PORT || 5000;

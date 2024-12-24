@@ -11,6 +11,20 @@ const getNotifications = async (req, res) => {
     }
 };
 
+// Get a notification by ID
+const getNotificationById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const notification = await Notification.findById(id);
+        if (!notification) {
+            return res.status(404).json({ message: "Notification not found" });
+        }
+        res.json(notification);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching notification", error });
+    }
+};
+
 // Create a notification
 const createNotification = async (req, res) => {
     try {
@@ -50,9 +64,26 @@ const deleteNotification = async (req, res) => {
     }
 };
 
+// Update a notification (if needed for other updates like title, content, etc.)
+const updateNotification = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedData = req.body;
+        const notification = await Notification.findByIdAndUpdate(id, updatedData, { new: true });
+        if (!notification) {
+            return res.status(404).json({ message: "Notification not found" });
+        }
+        res.json({ message: "Notification updated", notification });
+    } catch (error) {
+        res.status(500).json({ message: "Error updating notification", error });
+    }
+};
+
 module.exports = {
     getNotifications,
     createNotification,
     markAsRead,
     deleteNotification,
+    getNotificationById,
+    updateNotification,
 };
