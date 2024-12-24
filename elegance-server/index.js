@@ -10,15 +10,15 @@ const adminRoutes = require("./routes/adminRoutes");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
-// const inventoryRoutes = require("./routes/inventoryRoutes");
-// const reviewRoutes = require("./routes/reviewRoutes");
-// const cartRoutes = require("./routes/cartRoutes");
+const inventoryRoutes = require("./routes/inventoryRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
+const cartRoutes = require("./routes/cartRoutes");
 const wishlistRoutes = require("./routes/wishlistRoutes");
 const userRoutes = require("./routes/userRoutes");
-// const paymentRoutes = require("./routes/paymentRoutes");
-// const returnRoutes = require("./routes/returnRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
+const returnRoutes = require("./routes/returnRoutes");
 // const couponRoutes = require("./routes/CuponRoutes");
-// const notificationRoutes = require("./routes/NotificationRouter");
+const notificationRoutes = require("./routes/NotificationRouter");
 
 // :(
 
@@ -46,15 +46,15 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
-// app.use("/api/inventory", inventoryRoutes);
-// app.use("/api/reviews", reviewRoutes);
-// app.use("/api/cart", cartRoutes);
+app.use("/api/inventory", inventoryRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/cart", cartRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/users", userRoutes);
-// app.use("/api/payments", paymentRoutes);
-// app.use("/api/returns", returnRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/returns", returnRoutes);
 // app.use("/api/coupons", couponRoutes);
-// app.use("/api/notifications", notificationRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 const port = process.env.PORT || 5000;
 

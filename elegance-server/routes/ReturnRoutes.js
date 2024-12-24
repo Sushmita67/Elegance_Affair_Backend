@@ -4,7 +4,8 @@ const returnController = require("../controller/ReturnController");
 
 // Return Routes
 router.get("/:orderId", returnController.getReturnsByOrder); // Get returns for an order
-router.post("/", returnController.createReturn); // Create return request
+router.get("/", returnController.viewReturns); // View all return requests
+router.post("/", returnController.requestReturn); // Create a return request
 router.put("/:id", returnController.updateReturn); // Update return status
 router.delete("/:id", returnController.deleteReturn); // Delete return request
 

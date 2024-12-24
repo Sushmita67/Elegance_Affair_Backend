@@ -54,6 +54,42 @@ const getReviewsByProduct = async (req, res) => {
     }
 };
 
+// Update a review
+const updateReview = async (req, res) => {
+    try {
+        const { reviewId, userId, rating, comment } = req.body;
+
+        const review = await Review.findById(reviewId);
+        if (!review) {
+            return res.status(404).json({ message: "Review not found." });
+        }
+
+        if (review.userId.toString() !== userId) {
+            return res.status(403).json({ message: "Unauthorized to update this review." });
+        }
+
+        if (rating !== undefined) review.rating = rating;
+        if (comment !== undefined) review.comment = comment;
+
+        await review.save();
+
+        // Recalculate average rating for the product
+        const product = await Product.findById(review.productId);
+        if (product) {
+            const reviews = await Review.find({ productId: product._id });
+            const averageRating =
+                reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+
+            product.averageRating = averageRating;
+            await product.save();
+        }
+
+        res.status(200).json({ message: "Review updated successfully.", review });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to update review.", error: error.message });
+    }
+};
+
 // Delete a review
 const deleteReview = async (req, res) => {
     try {
@@ -85,5 +121,6 @@ const deleteReview = async (req, res) => {
 module.exports = {
     addReview,
     getReviewsByProduct,
+    updateReview,
     deleteReview,
 };
